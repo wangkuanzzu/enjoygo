@@ -1,0 +1,3 @@
+hello world1 . Welcome to file handling in go .
+hello world2 . Welcome to file handling in go .
+hello world3 . Welcome to file handling in go .
