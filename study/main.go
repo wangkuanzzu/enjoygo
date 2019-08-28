@@ -1,12 +1,15 @@
 package main
 
-import (
-	"fmt"
-	"runtime"
-	"sync"
-)
+import "github.com/wangkuanzzu/enjoygo/study/routine"
 
 func main() {
+
+	//创建qos账户
+	//filewrite.GenAccount()
+
+	//defer是栈的形式，先进后出
+	routine.Defer_call()
+
 	/*
 		fmt.Println("begin test your algorithm...")
 
@@ -101,52 +104,23 @@ func main() {
 	// reflection.CreateQuery(o)
 
 	//同步调用
-	sync_test()
-}
+	//sync_test()
 
-func sync_test() {
-	runtime.GOMAXPROCS(1)
-	wg := sync.WaitGroup{}
-	wg.Add(20)
-	for i := 0; i < 10; i++ {
-		go func() {
-			fmt.Println("i:= ", i)
-			wg.Done()
-		}()
-	}
-	for i := 0; i < 10; i++ {
-		go func(i int) {
-			fmt.Println("i:== ", i)
-			wg.Done()
-		}(i)
-	}
-	wg.Wait()
-}
+	// var Codec = amino.NewCodec()
+	// privKey := ed25519.GenPrivKey()
+	// priKeyBytes, err := Codec.MarshalJSON(privKey)
 
-type student struct {
-	Name string
-	Age  int
-}
+	// pubKey := privKey.PubKey()
+	// pubKeyBytes, err := Codec.MarshalJSON(pubKey)
 
-//下面函数存在的问题是：使用地址给数组元素赋值，导致所有数组元素的值相同。
-func pase_student() {
-	m := make(map[string]*student)
-	stus := []student{
-		{Name: "zhou", Age: 24},
-		{Name: "li", Age: 23},
-		{Name: "wang", Age: 22},
-	}
-	for _, stu := range stus {
-		m[stu.Name] = &stu
-	}
-	fmt.Println("m: ", m)
-}
+	// address := btypes.Address(pubKey.Address())
 
-//defer的执行是一个入栈出栈的过程
-func defer_call() {
-	defer func() { fmt.Println("打印前") }()
-	defer func() { fmt.Println("打印中") }()
-	defer func() { fmt.Println("打印后") }()
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	panic("触发异常")
+	// fmt.Println("privKey = ", string(priKeyBytes))
+	// fmt.Println("pubKey  = ", string(pubKeyBytes))
+	// fmt.Println(address)
+
 }

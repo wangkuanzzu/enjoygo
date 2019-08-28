@@ -1,10 +1,15 @@
 package filewrite
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"sync"
+
+	btypes "github.com/QOSGroup/qbase/types"
+	"github.com/tendermint/tendermint/crypto/ed25519"
 )
 
 // 产生随机数函数
@@ -193,4 +198,54 @@ func WriteFileWithByteAndPath(path string, filename string) {
 	}
 	return
 
+}
+
+//创建qos账户
+func GenAccount() {
+	var arr []interface{}
+	accounts := make(map[string]interface{})
+	for i := 0; i < 1; i++ {
+		for index := 0; index < 100; index++ {
+			c := make(map[string]interface{})
+			b := btypes.Address(ed25519.GenPrivKey().PubKey().Address())
+			c["qos"] = "1"
+			c["qsc"] = nil
+			c["base_account"] = map[string]interface{}{
+				"account_address": b,
+				"public_key":      nil,
+				"nonce":           "0",
+			}
+			// cdata, _ := json.MarshalIndent(c, "", " ")
+			// fmt.Println("cdata==", string(cdata))
+			arr = append(arr, c)
+		}
+	}
+
+	accounts["accounts"] = arr
+
+	data, err := json.MarshalIndent(accounts, "", " ")
+
+	if err != nil {
+		log.Println("ERROR:", err)
+	}
+
+	f, err := os.Create("../study/filewrite/account.json")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	l, err := f.WriteString(string(data))
+	if err != nil {
+		fmt.Println(err)
+		f.Close()
+		return
+	}
+
+	fmt.Println(l, "written successfully")
+	err = f.Close()
+	if err != nil {
+		fmt.Println(err)
+	}
+	return
 }
