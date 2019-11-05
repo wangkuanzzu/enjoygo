@@ -4,7 +4,7 @@ func main() {
 
 
 
-
+	//链表数据结构的构建和基本方法测试
 	//linkList:=LinkList.CreateLinkList()
 	//fmt.Println("链表创建成功：")
 	//linkList.PrintInfo()
