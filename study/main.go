@@ -4,6 +4,13 @@ func main() {
 
 
 
+	//interface{}是类型  nil是值
+	//var i interface{} = nil
+	//if i == nil {
+	//	fmt.Println("i is nil")
+	//}else {
+	//	fmt.Println("i is not nil")
+	//}
 	//链表数据结构的构建和基本方法测试
 	//linkList:=LinkList.CreateLinkList()
 	//fmt.Println("链表创建成功：")
